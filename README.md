@@ -87,8 +87,7 @@ To set up CloudWatch:
     sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
     sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a status
     ```
-
-   ![Screen Shot 2023-10-01 at 3 15 44 PM](https://github.com/belindadunu/deployment4/assets/139175163/a91eb4c4-8fef-4b79-929b-75ef5e0f5f0f)
+![Screen Shot 2023-10-01 at 3 15 44 PM](https://github.com/belindadunu/deployment4/assets/139175163/0f297406-0d63-47c2-a9df-33de09bddaaf)
 
 ### Configure Jenkins Pipeline
 
@@ -110,7 +109,8 @@ During the deployment and builds, I monitored the server performance using tools
 
 - Monitor the server's performance, including CPU usage, during build runs and application usage.
 
-![Screen Shot 2023-10-01 at 4 37 31 PM](https://github.com/belindadunu/deployment4/assets/139175163/b866039e-be7f-48ad-9a4a-c7c75542f824)
+![Screen Shot 2023-10-01 at 4 37 31 PM](https://github.com/belindadunu/deployment4/assets/139175163/824eb3a5-27e6-447a-9283-b1addf5dd0e9)
+
 
 - CPU usage stayed under 50% during builds.
 
@@ -124,11 +124,11 @@ Based on this, the t2.medium instance seems able to handle the current load.
 
 I configured a CloudWatch alarm to notify me when CPU usage exceeds 15% for 5 minutes.
 
-![Screen Shot 2023-10-01 at 5 16 10 PM](https://github.com/belindadunu/deployment4/assets/139175163/b05800a3-da03-4022-8077-de76f2c12d6b)
+![Screen Shot 2023-10-01 at 5 16 10 PM](https://github.com/belindadunu/deployment4/assets/139175163/3287db7f-1f58-40ba-ab33-b01a88010a58)
 
 When running parallel builds, I received an SNS email alert as the CPU spiked above this threshold to around 18%.
-![Screen Shot 2023-10-01 at 5 02 11 PM](https://github.com/belindadunu/deployment4/assets/139175163/3d0f1656-17d2-42e4-96e4-0b304c21e191)
-![Screen Shot 2023-10-01 at 4 58 45 PM](https://github.com/belindadunu/deployment4/assets/139175163/d527606d-ac7b-47e9-aa57-ec01cdc37ae4)
+![Screen Shot 2023-10-01 at 5 02 11 PM](https://github.com/belindadunu/deployment4/assets/139175163/ef5a9fdc-936a-4ca0-bac2-4c78df293079)
+![Screen Shot 2023-10-01 at 4 58 17 PM](https://github.com/belindadunu/deployment4/assets/139175163/feb8e851-c546-470a-a9fb-5ddc209fc7bc)
 
 This shows the alert is functioning as expected to catch high CPU usage.
 
@@ -166,10 +166,8 @@ This sends email alerts when builds fail due to the post-build action.
 ### IAM Role
 - I needed to attach the IAM Role and policy in order for the agent to send metrics and logs to Amazon CloudWatch.
 
-![Screen Shot 2023-10-01 at 3 08 52 PM](https://github.com/belindadunu/deployment4/assets/139175163/1f126f82-6df5-45bd-80a1-4660cc0b4e58)
-
-![Screen Shot 2023-10-01 at 3 09 57 PM](https://github.com/belindadunu/deployment4/assets/139175163/7b20b256-33c6-4b41-afaa-ad7249207183)
-
+![Screen Shot 2023-10-01 at 3 08 52 PM](https://github.com/belindadunu/deployment4/assets/139175163/2cb19fe6-a752-495c-9a0c-48a60daf9f79)
+![Screen Shot 2023-10-01 at 3 09 57 PM](https://github.com/belindadunu/deployment4/assets/139175163/8af23e6e-ca87-4c3e-80b1-02e58d2e92a3)
 ![Screen Shot 2023-10-01 at 3 04 32 PM](https://github.com/belindadunu/deployment4/assets/139175163/d7440197-3e83-4ca3-b6fe-ed20c6f095ec)
 
 ### ChatGPT Usage
