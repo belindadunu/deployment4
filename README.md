@@ -25,7 +25,7 @@ Set up the virtual environment to run Jenkins:
 
 1. Create an AWS account if you don't have one.
 
-2. Create a new public subnet in AWS and launch EC2 instance. Used t2.medium to have sufficient computing resources.
+2. Create a new public subnet in AWS and launch EC2 instance. I used t2.medium to have sufficient computing resources.
 
 3. Configure the security group to open necessary ports - 80, 8080, 8000, 22. This allows access to the various services.
 
@@ -71,7 +71,7 @@ Since my infrastructure is hosted in AWS, I decided to use [CloudWatch](https://
 - Cost-effective and easy to get started.
 
 **Alternatives:** 
-I also considered using [Datadog](https://www.datadoghq.com/) which offers advanced dashboards, integration with many services, and robust analytics. However, for this simple infrastructure, Datadog was overkill. In the future, as the infrastructure grows, Datadog may be worth investigating.
+I also considered using [Datadog](https://www.datadoghq.com/) which offers advanced dashboards, integration with many services, and robust analytics. However, for this simple infrastructure, Datadog may have been a bit much. In the future, as the infrastructure grows, Datadog may be worth investigating.
 
 To set up CloudWatch:
 
