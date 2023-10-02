@@ -78,10 +78,10 @@ To set up CloudWatch:
 1. Install the [CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html) on the EC2 instance.
 
 2. Run the configuration wizard to set up the agent.
-3. 
+
 ![Screen Shot 2023-10-01 at 3 12 10 PM](https://github.com/belindadunu/deployment4/assets/139175163/dadc005a-862f-46fa-bd84-d9d5442b5810)
 
-4. Start the CloudWatch agent and confirm it is collecting metrics.
+3. Start the CloudWatch agent and confirm it is collecting metrics.
 
     ```bash
     sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
