@@ -186,7 +186,7 @@ This sends email alerts when builds fail due to the post-build action.
 ![Screen Shot 2023-10-01 at 3 04 32 PM](https://github.com/belindadunu/deployment4/assets/139175163/d7440197-3e83-4ca3-b6fe-ed20c6f095ec)
 
 ### ChatGPT Usage
-- I leveraged ChatGPT AI assistant to provide assistance in finding out if my CloudWatch configuration was properly created on my EC2. I was provided with the following explanation and breakdown:
+I leveraged ChatGPT AI assistant to provide assistance in finding out if my CloudWatch configuration was properly created on my EC2. I was provided with the following explanation and breakdown:
 
 `sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json`
 
