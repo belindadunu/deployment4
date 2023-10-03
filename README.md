@@ -40,9 +40,10 @@ Set up the virtual environment to run Jenkins:
     ```
 
 6. Install and set up [Jenkins](https://www.jenkins.io/doc/book/installing/linux/#debianubuntu) on the EC2 instance. Jenkins will be used to automate builds and deployments.
-  - Install `Pipeline Keep Running Step` plugin to keep processes running between builds.
 
-6. Install [Nginx](https://www.nginx.com/blog/setting-up-nginx/) web server and update the default config file `/etc/nginx/sites-enabled/default` as follows:
+    6a. Install `Pipeline Keep Running Step` plugin to keep processes running between builds.
+
+7. Install [Nginx](https://www.nginx.com/blog/setting-up-nginx/) web server and update the default config file `/etc/nginx/sites-enabled/default` as follows:
 
     ```nginx
     server {
@@ -116,7 +117,7 @@ During the deployment and builds, I monitored the server performance using tools
 
 - CPU usage stayed under 50% during builds.
 
-3. Application deployed successfully and CloudWatch metrics provided visibility into server resource utilization.
+- Application deployed successfully and CloudWatch metrics provided visibility into server resource utilization.
 
 Based on this, the t2.medium instance seems able to handle the current load.
 
@@ -144,7 +145,7 @@ A t2.micro may struggle with the current deployment, as the limited CPU could ca
 
 ### Configure Email Notifications in Jenkins
 
-To setup notifications in Jenkins:
+To set notifications in Jenkins:
 
 1. In "Manage Jenkins" > "Configure System", scroll to "Jenkins Location".
 - Enter in email under "System Admin e-mail address.
