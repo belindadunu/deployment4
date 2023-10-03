@@ -201,7 +201,7 @@ This command will grab the CloudWatch agent configuration specific to the EC2 in
 
 ## System Diagram
 
-![Dep_4 drawio](https://github.com/belindadunu/deployment4/assets/139175163/07316a43-e848-4e99-8918-7b065a2cbff3)
+![Dep4 drawio](https://github.com/belindadunu/deployment4/assets/139175163/a08b1535-592d-410d-849c-fbb7326e9c4d)
 
 ## Conclusion
 
