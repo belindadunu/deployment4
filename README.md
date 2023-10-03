@@ -2,9 +2,11 @@
 
 ## Overview
 
-During this deployment, I'll guide you through the process of deploying our Python URL shortener application to an EC2 instance. In our previous deployments, we utilized Elastic Beanstalk, which is a managed AWS service. With Elastic Beanstalk, we didn't have to provision the necessary infrastructure, like installing the required software, configuring services, and running the application - all that was handled for us. 
+In previous deployments, we used AWS Elastic Beanstalk to handle provisioning infrastructure and deploying our application. Elastic Beanstalk is a PaaS (Platform as a Service) that abstracts away managing EC2 instances, auto-scaling, load balancing, etc.
 
-In this deployment, we'll be creating these resources ourselves and configuring services like Nginx manually. This provides more control and customization for our infrastructure setup.
+However, for this deployment, we wanted more control over the server configuration and infrastructure. So we provisioned an EC2 instance directly, installed dependencies like Nginx, configured the networking, set up monitoring with CloudWatch, and deployed our application code.
+
+Moving to EC2 allows us to customize the server and architecture as needed. The tradeoff is we now have to handle tasks like scaling and high availability instead of relying on Beanstalk services.
 
 ## Requirements
 
@@ -155,16 +157,22 @@ This sends email alerts when builds fail due to the post-build action.
 ## Issues
 
 ### Error installing Jenkins - "GPG key retrieval failed"
-- This was likely due to a change in Jenkins apt repos for the weekly release.
+- Initially got "GPG key retrieval failed" error during Jenkins apt installation.
+- Troubleshooting showed the Jenkins apt repo changed for a recent release.
+- Fixed by purging old Jenkins cached packages, installing latest Java version, re-adding the Jenkins repo, and reinstalling.
 - I resolved this by removing Jenkins cache, re-installing Java versions, and reinstalling the packages.
 
-### Incorrect application port
-- My initial attempts to access the app failed because I was using port 5000.
-- The Flask app was actually on port 8000.
-- I had to restart the EC2 instance and navigate to port 8000 in order to resolve.
+### Inaccessible application
+- After deployment, attempts to access the application failed.
+- Debugging revealed the EC2 security group was still blocking port 8000.
+- Updated the security group rules to open ingress to port 8000.
+- The application became accessible again after the security group change.
 
-### IAM Role
-- I needed to attach the IAM Role and policy in order for the agent to send metrics and logs to Amazon CloudWatch.
+### CloudWatch agent setup
+- CloudWatch metrics were not showing up in the console after installing the agent.
+- Realized the agent didn't have the required IAM permissions to send metrics.
+- Attached the CloudWatchAgentServerPolicy managed policy for the instance role.
+- Agent started pushing metrics after several minutes.
 
 ![Screen Shot 2023-10-01 at 3 08 52 PM](https://github.com/belindadunu/deployment4/assets/139175163/2cb19fe6-a752-495c-9a0c-48a60daf9f79)
 ![Screen Shot 2023-10-01 at 3 09 57 PM](https://github.com/belindadunu/deployment4/assets/139175163/8af23e6e-ca87-4c3e-80b1-02e58d2e92a3)
@@ -184,21 +192,28 @@ This sends email alerts when builds fail due to the post-build action.
 
 This command will grab the CloudWatch agent configuration specific to the EC2 instance from the specified JSON file and apply it to the local configuration of the agent. This allows the instance to start sending metrics and logs to Amazon CloudWatch for monitoring and analysis.
 
-## Optimization
-
-To optimize this deployment, we could consider the following:
-
-- **Vertical Scaling:** Consider upgrading the EC2 instance to a larger type once the application requires more resources.
-- **Horizontal Scaling:** Deploy multiple instances behind a load balancer to distribute traffic and improve reliability.
-- **Caching:** Implement caching mechanisms to reduce the load on the server.
-- **CDN Integration:** Integrate a Content Delivery Network (CDN) to serve static assets and reduce latency for users.
-- **AMI** Create AMI to launch pre-configured EC2 instances
-- **Automate Infrastructure** Automate provisioning infrastructure with Terraform
-
 ## System Diagram
 
 ![Deployment4 drawio](https://github.com/belindadunu/deployment4/assets/139175163/a43a00f3-afa9-44e9-905b-53c403812307)
 
 ## Conclusion
 
-This deployment guide walks through setting up a simple infrastructure to run an application on AWS. CloudWatch provides metrics for monitoring, while Jenkins automates builds and deployments. There are many options to optimize this architecture as the application scales.
+In this deployment, we were able to walk through setting up infrastructure and deploying an application on EC2 instead of using Elastic Beanstalk. Key steps included:
+
+- Creating an EC2 instance and configuring networking/security groups.
+- Installing dependencies like Python, Git, Jenkins, and Nginx.
+- Setting up Jenkins for CI/CD.
+- Configuring CloudWatch monitoring and alerts.
+- Deploying the application with Gunicorn and Nginx.
+- Automating deployments through Jenkins pipelines.
+- Moving from Beanstalk to EC2 provided more control and customization, at the cost of manual configuration. CloudWatch enabled monitoring of the server and application.
+
+While this architecture is functional, there are further improvements that could be made:
+
+- Using auto-scaling groups to handle fluctuations in traffic.
+- Implementing infrastructure-as-code tools like Terraform.
+- Integrating a Content Delivery Network (CDN) to serve static assets and reduce latency for users.
+- Creating an AMI to launch pre-configured EC2 instances.
+- Setting up DNS and TLS for secure remote access.
+
+Overall, this project demonstrated core practices of automation, infrastructure provisioning, and monitoring. 
