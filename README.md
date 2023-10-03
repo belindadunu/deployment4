@@ -186,22 +186,12 @@ This sends email alerts when builds fail due to the post-build action.
 ![Screen Shot 2023-10-01 at 3 04 32 PM](https://github.com/belindadunu/deployment4/assets/139175163/d7440197-3e83-4ca3-b6fe-ed20c6f095ec)
 
 ### ChatGPT Usage
-I leveraged ChatGPT AI assistant to provide assistance in finding out if my CloudWatch configuration was properly created on my EC2. I was provided with the following explanation and breakdown:
-
-`sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json`
-
-- `sudo`: Run the command with superuser privileges.
-- `/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl`: Path to the CloudWatch agent control script.
-- `a fetch-config`: Action to fetch the configuration.
-- `m ec2`: Specifies the machine type, in this case, an Amazon EC2 instance.
-- `s`: Indicates that the configuration should be stored locally on the instance.
-- `c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json`: Specifies the path to the configuration file. In this case, the configuration is fetched from the provided JSON file located at /opt/aws/amazon-cloudwatch-agent/bin/config.json.
-
-This command will grab the CloudWatch agent configuration specific to the EC2 instance from the specified JSON file and apply it to the local configuration of the agent. This allows the instance to start sending metrics and logs to Amazon CloudWatch for monitoring and analysis.
+I consulted ChatGPT on steps to reconfigure the Jenkins repository when running into installation issues. While I referenced its commands, I made sure to research the process in order to comprehend it myself rather than just copy/paste. Through these interactions, ChatGPT provided me with useful insight that helped me overcome technical obstacles.
 
 ## System Diagram
 
 ![Dep4 drawio](https://github.com/belindadunu/deployment4/assets/139175163/a08b1535-592d-410d-849c-fbb7326e9c4d)
+_This system architecture diagram provides an overview of an end-to-end deployment pipeline from committing code changes to automated EC2 deployment using Jenkins, GitHub, and CloudWatch monitoring._
 
 ## Conclusion
 
