@@ -94,15 +94,21 @@ To set up CloudWatch:
 
 ### Configure Jenkins Pipeline
 
-1. Create a multibranch  pipeline job in Jenkins.
+1. Created a multibranch  pipeline job in Jenkins.
 
-2. Configure it to connect to my GitHub repository.
+2. Configured GitHub webhook to trigger pipeline on commits.
 
-3. Create a webhook in GitHub for your repository to trigger Jenkins builds automatically.
+3. Setup branch sources to scan for Jenkinsfiles.
 
-4. Setup branch sources to scan for Jenkinsfiles.
+4. Cloned the repository locally and created a new branch.
 
-5. Run initial pipeline run.
+5. Made changes to the Jenkinsfile in the feature branch.
+
+6. Committed the changes and pushed the feature branch to GitHub.
+
+7. Created a pull request and merged the feature branch into the main branch.
+
+8. Pushed the updated main branch to GitHub to trigger a build.
 
 ### Evaluate Server Performance
 During the deployment and builds, I monitored the server performance using tools like htop and CloudWatch metrics:
