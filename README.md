@@ -190,7 +190,7 @@ I consulted ChatGPT on steps to reconfigure the Jenkins repository when running 
 
 ## System Diagram
 
-![Dep4 drawio](https://github.com/belindadunu/deployment4/assets/139175163/a08b1535-592d-410d-849c-fbb7326e9c4d)
+![Deployment4_retake](https://github.com/belindadunu/deployment4/assets/139175163/a4c03969-7abe-44ed-b167-95efe09d1cfb)
 _This system architecture diagram provides an overview of an end-to-end deployment pipeline from committing code changes to automated EC2 deployment using Jenkins, GitHub, and CloudWatch monitoring._
 
 ## Conclusion
