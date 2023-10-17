@@ -123,8 +123,8 @@ stage('Clean') {
 ### Evaluate Server Performance
 During the deployment and builds, I monitored the server performance using tools like htop and CloudWatch metrics:
 
-- Check the application by accessing the EC2 public IP on port 8000 in a web browser:
-  `<your-public-ip>:8000`
+- Check the application by accessing the EC2 public IP on port 5000 in a web browser:
+  `<your-public-ip>:5000`
 
 - Monitor the server's performance, including CPU usage, during build runs and application usage.
 
@@ -202,19 +202,25 @@ This sends email alerts when builds fail due to the post-build action.
 **ChatGPT:** Here are a few things you can try to resolve the GPG key error when installing Jenkins:
 
 1. Delete any existing cached Jenkins packages:
+
   ```bash
   sudo apt-get remove jenkins
   sudo apt-get purge Jenkins
   ```
 2. Ensure you have the latest Java version installed:
+   
    ```bash
   sudo apt-get install openjdk-8-jdk
   ```
+
 3. Add the new Jenkins apt repository:
+
    ```bash
   sudo apt-get install openjdk-8-jdk
   ```
+
 4. Update apt and install Jenkins:
+
    ```bash
   sudo apt-get update
   sudo apt-get install jenkins
