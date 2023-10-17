@@ -29,7 +29,7 @@ Set up the virtual environment to run Jenkins:
 
 2. Create a new public subnet in AWS and launch EC2 instance. I used t2.medium to have sufficient computing resources.
 
-3. Configure the security group to open necessary ports - 80, 8080, 8000, 22. This allows access to the various services.
+3. Configure the security group to open necessary ports - 80, 8080, 5000, 22. This allows access to the various services.
 
 4. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
@@ -110,6 +110,16 @@ To set up CloudWatch:
 
 8. Pushed the updated main branch to GitHub to trigger a build.
 
+The clean stage set up in our Jenkinsfile will stop any currently running processes before redeploying:
+
+    ```bash
+stage('Clean') {
+  steps {
+    sh 'pkill -f app.py' 
+  }
+}
+    ```
+
 ### Evaluate Server Performance
 During the deployment and builds, I monitored the server performance using tools like htop and CloudWatch metrics:
 
@@ -131,7 +141,7 @@ Based on this, the t2.medium instance seems able to handle the current load.
 
 ### CPU Usage Alerts
 
-I configured a CloudWatch alarm to notify me when CPU usage exceeds 15% for 5 minutes.
+I configured a CloudWatch alarm to notify me when CPU usage exceeds 15% for 5 minutes. The reason for this threshold is to catch sustained high CPU usage that may indicate performance issues. Spikes above 15% are ok, but prolonged high usage could degrade application response times.
 
 ![Screen Shot 2023-10-01 at 5 16 10 PM](https://github.com/belindadunu/deployment4/assets/139175163/3287db7f-1f58-40ba-ab33-b01a88010a58)
 
@@ -171,8 +181,8 @@ This sends email alerts when builds fail due to the post-build action.
 
 ### Inaccessible application
 - After deployment, attempts to access the application failed.
-- Debugging revealed the EC2 security group was still blocking port 8000.
-- Updated the security group rules to open ingress to port 8000.
+- Debugging revealed the EC2 security group was still blocking port 5000.
+- Updated the security group rules to open ingress to port 5000.
 - The application became accessible again after the security group change.
 
 ### CloudWatch agent setup
@@ -186,7 +196,31 @@ This sends email alerts when builds fail due to the post-build action.
 ![Screen Shot 2023-10-01 at 3 04 32 PM](https://github.com/belindadunu/deployment4/assets/139175163/d7440197-3e83-4ca3-b6fe-ed20c6f095ec)
 
 ### ChatGPT Usage
-I consulted ChatGPT on steps to reconfigure the Jenkins repository when running into installation issues. While I referenced its commands, I made sure to research the process in order to comprehend it myself rather than just copy/paste. Through these interactions, ChatGPT provided me with useful insight that helped me overcome technical obstacles.
+
+**Me:** I'm getting a "GPG key retrieval failed" error when trying to install Jenkins on Ubuntu. How can I fix this?
+
+**ChatGPT:** Here are a few things you can try to resolve the GPG key error when installing Jenkins:
+
+1. Delete any existing cached Jenkins packages:
+  ```bash
+  sudo apt-get remove jenkins
+  sudo apt-get purge Jenkins
+  ```
+2. Ensure you have the latest Java version installed:
+   ```bash
+  sudo apt-get install openjdk-8-jdk
+  ```
+3. Add the new Jenkins apt repository:
+   ```bash
+  sudo apt-get install openjdk-8-jdk
+  ```
+4. Update apt and install Jenkins:
+   ```bash
+  sudo apt-get update
+  sudo apt-get install jenkins
+  ```
+
+This helped me identify the steps needed to update the repo keys and reinstall Jenkins correctly. I made sure to research the commands before running them.
 
 ## System Diagram
 
