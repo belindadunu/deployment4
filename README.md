@@ -217,10 +217,8 @@ This sends email alerts when builds fail due to the post-build action.
 
 4. Update apt and install Jenkins:
 
-   ```bash
-  sudo apt-get update
-  sudo apt-get install jenkins
-```
+   `sudo apt-get update`
+   `sudo apt-get install jenkins`
 
 This helped me identify the steps needed to update the repo keys and reinstall Jenkins correctly. I made sure to research the commands before running them.
 
